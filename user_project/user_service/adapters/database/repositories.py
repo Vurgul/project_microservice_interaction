@@ -5,34 +5,22 @@ from classic.sql_storage import BaseRepository
 from user_service.application import interfaces
 from user_service.application.dataclasses import User
 from sqlalchemy import select
-from tables import users
 
 
 @component
 class UsersRepo(BaseRepository, interfaces.UsersRepo):
 
     def get_by_id(self, id: int) -> Optional[User]:
-        query = select(users).where(users.c.id == id)
-        return self.session.execute(query).fetchone()
-        # query = select(User).where(User.id == id)
-        # return self.session.execute(query).scalars().one_or_none()
+        query = select(User).where(User.id == id)
+        return self.session.execute(query).scalars().one_or_none()
 
     def add(self, user: User):
-        query = users.insert().values(
-            name=user.name,
-            age=user.age,
-        )
-        self.session.execute(query)
-        # self.session.add(user)
-        # self.session.flush()
+        self.session.add(user)
+        self.session.flush()
 
     def get_all(self):
-        query = select(users)
-        return self.session.execute(query).fetchall()
-        # query = select(User)
-        # return self.session.execute(query).scalars().all()
+        query = select(User)
+        return self.session.execute(query).scalars().all()
 
     def remove(self, user: User):
-        query = users.delete().where(users.c.id == user.id)
-        self.session.execute(query)
-        # self.session.delete(user)
+        self.session.delete(user)

@@ -1,8 +1,8 @@
-# from user_service.application import dataclasses
-# from sqlalchemy.orm import registry
+from user_service.application import dataclasses
+from sqlalchemy.orm import registry
 
-# from . import tables
+from . import tables
 
-# mapper = registry()
+mapper = registry()
 
-# mapper.map_imperatively(dataclasses.User, tables.users)
+mapper.map_imperatively(dataclasses.User, tables.users)

@@ -1,22 +1,18 @@
 version: "3.8"
 services:
-  backend:
+  user_service:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: user_service
     ports:
       - "1234:1234"
     restart: always
     depends_on:
-      - db
+      - user_db
     env_file:
       - .env
-  db:
+  user_db:
     image: postgres:14
-    container_name: postgres_user
-    ports:
-        - "8080:8080"
     restart: always
     volumes:
       - ./volumes/db

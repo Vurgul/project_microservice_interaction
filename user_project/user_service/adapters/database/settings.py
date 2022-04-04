@@ -1,12 +1,21 @@
 from pydantic import BaseSettings
-from dotenv import dotenv_values
-config = dotenv_values(".env")
+# from dotenv import dotenv_values
+import os
 
 
 class Settings(BaseSettings):
-    print(config.get('DB_USER'))
-    DB_URL = f"mysql://{config.get('DB_USER')}:{config.get('DB_PASSWORD')}@" \
-             f"{config.get('DB_HOST')}:{config.get('DB_PORT')}/{config.get('DB_DATABASE')}"
+    user = os.getenv('USER', 'user')
+    password = os.getenv('PASSWORD', 'password')
+    host = os.getenv('HOST', 'localhost')
+    port = os.getenv('PORT', '5432')
+    database = os.getenv('DATABASE', 'test')
+
+    print(user)
+    print(password)
+    print(host)
+    print(port)
+    print(database)
+    DB_URL = f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}"
 
     LOGGING_LEVEL: str = 'INFO'
     SA_LOGS: bool = False

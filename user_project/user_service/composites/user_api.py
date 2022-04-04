@@ -33,8 +33,8 @@ app = user_api.create_app(
     users=Application.users
 )
 
-if __name__ == '__main__':
-    from wsgiref import simple_server
-    with simple_server.make_server('localhost', 8000, app=app) as server:
-        print(f'Server running on http://localhost:{server.server_port} ...')
-        server.serve_forever()
+#if __name__ == '__main__':
+#    from wsgiref import simple_server
+#    with simple_server.make_server('localhost', 8000, app=app) as server:
+#        print(f'Server running on http://localhost:{server.server_port} ...')
+#        server.serve_forever()
