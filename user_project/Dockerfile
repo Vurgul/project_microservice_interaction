@@ -8,5 +8,5 @@ COPY setup.py .
 RUN pip install --upgrade pip && pip install -e ".[dev]"
 COPY . .
 
-CMD ["hupper", "-m", "waitress", "--port=1234", "--host=0.0.0.0", "user_service.composites.user_api:app"]
+CMD ["hupper", "-m", "waitress", "--port=1111", "--host=0.0.0.0", "user_service.composites.user_api:app"]
 # hupper -m waitress --port=8000 --host=127.0.0.1 user_service.composites.user_api:app
