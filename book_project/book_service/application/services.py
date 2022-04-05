@@ -8,6 +8,8 @@ from pydantic import validate_arguments
 from . import errors, interfaces
 from .dataclasses import Book
 
+from classic.messaging import Message, Publisher
+
 join_points = PointCut()
 join_point = join_points.join_point
 
@@ -29,6 +31,7 @@ class BookUpDateInfo(DTO):
 @component
 class BookService:
     book_repo: interfaces.BooksRepo
+    publisher: Publisher
 
     @join_point
     @validate_arguments

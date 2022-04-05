@@ -1,4 +1,4 @@
-from kombu import Connection
+"""from kombu import Connection
 
 from classic.messaging_kombu import KombuConsumer
 
@@ -15,7 +15,7 @@ def create_consumer(
 
     consumer.register_function(
         users.create_user,
-        'UsersQueue',
+        'ProjectQueue',
     )
 
-    return consumer
+    return consumer"""

@@ -69,3 +69,10 @@ class IssueService:
         issue = self.get_issue_info(issue_id)
         self.issue_repo.remove(issue)
 
+    @join_point
+    def take_message(self, *args, **kwargs):
+        print('TEST CONNECTION')
+        for arg in args:
+            print(arg)
+        for kwarg in kwargs:
+            print(kwarg)

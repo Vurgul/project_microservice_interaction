@@ -20,5 +20,5 @@ issues = Table(
     Column('action', String(128), nullable=False),
     Column('user_id', Integer, nullable=True),
     Column('book_id', Integer, nullable=True),
-    Column('data', nullable=False, default=datetime.now()),
+    Column('data', DateTime, nullable=False, default=datetime.now()),
 )

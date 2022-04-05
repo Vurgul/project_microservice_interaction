@@ -22,34 +22,43 @@ class DB:
     issues_repo = database.repositories.IssuesRepo(context=context)
 
 
-class MessageBus:
-    connection = Connection(Settings.message_bus.BROKER_URL)
-    message_bus.broker_scheme.declare(connection)
-
-    publisher = KombuPublisher(
-        connection=connection,
-        scheme=message_bus.broker_scheme,
-    )
-
-
 class Application:
     issues = services.IssueService(
         issue_repo=DB.issues_repo,
-        publisher=MessageBus.publisher,
+        #publisher=MessageBus.publisher,
     )
+
+
+class MessageBus:
+    connection = Connection(Settings.message_bus.BROKER_URL)
+
+    consumer = message_bus.create_consumer(connection, Application.issues)
+
+    @staticmethod
+    def declare_scheme():
+        message_bus.broker_scheme.declare(MessageBus.connection)
+
+#    message_bus.broker_scheme.declare(connection)
+#    publisher = KombuPublisher(
+#        connection=connection,
+#        scheme=message_bus.broker_scheme,
+#    )
 
 
 class Aspects:
     services.join_points.join(DB.context)
-    issue_api.join_points.join(MessageBus.publisher, DB.context)
+    issue_api.join_points.join(DB.context)
+    #issue_api.join_points.join(MessageBus.publisher, DB.context)
 
+
+#if __name__ == '__main__':
+#    MessageBus.declare_scheme()
+#    MessageBus.consumer.run()
+
+
+#MessageBus.declare_scheme()
+#MessageBus.consumer.run()
 
 app = issue_api.create_app(
     issues=Application.issues
 )
-
-#if __name__ == '__main__':
-#    from wsgiref import simple_server
-#    with simple_server.make_server('localhost', 8000, app=app) as server:
-#        print(f'Server running on http://localhost:{server.server_port} ...')
-#        server.serve_forever()

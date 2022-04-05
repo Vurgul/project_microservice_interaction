@@ -29,7 +29,7 @@ class UserUpDateInfo(DTO):
 @component
 class UserService:
     user_repo: interfaces.UsersRepo
-    publisher: Optional[Publisher] = None
+    publisher: Publisher
 
     @join_point
     @validate_arguments
@@ -48,13 +48,14 @@ class UserService:
     @join_point
     @validate_with_dto
     def create_user(self, user_info: UserInfo) -> User:
+        print('TEST CONNECTION')
         user = user_info.create_obj(User)
         self.user_repo.add(user)
 
         if self.publisher:
             self.publisher.plan(
                 Message(
-                    'users_exchange',
+                    'our_exchange',
                     {
                         'user_id': user.id,
                         'action': 'create',
