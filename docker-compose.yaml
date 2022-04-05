@@ -1,5 +1,6 @@
 version: "3.8"
 services:
+
   backend_user:
     build:
       context: user_project/.
@@ -11,6 +12,7 @@ services:
       - db
     env_file:
       - user_project/.env
+
   backend_book:
     build:
       context: book_project/.
@@ -34,17 +36,17 @@ services:
       - db
     env_file:
       - issue_project/.env
+
   db:
     build:
       context: postgresql/.
       dockerfile: Dockerfile
     restart: always
+    ports:
+      - "5432:5432"
     volumes:
-      - ./volumes/db
-    environment:
-      - POSTGRES_MULTIPLE_DATABASES="user_db","book_db","issue_db"
-    env_file:
-      - postgresql/.env
+      - ./postgresql/init.sql:/docker-entrypoint-initdb.d/init.sql
+
   nginx:
     image: nginx:1.21.6
     container_name: nginx
