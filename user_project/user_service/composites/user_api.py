@@ -1,12 +1,16 @@
 from classic.sql_storage import TransactionContext
-from user_service.adapters import user_api, database
+from user_service.adapters import user_api, database, message_bus
 from user_service.application import services
 from sqlalchemy import create_engine
+
+from kombu import Connection
+from classic.messaging_kombu import KombuPublisher
 
 
 class Settings:
     db = database.Settings()
     chat_api = user_api.Settings()
+    message_bus = message_bus.Settings()
 
 
 class DB:
@@ -18,15 +22,27 @@ class DB:
     users_repo = database.repositories.UsersRepo(context=context)
 
 
+class MessageBus:
+    connection = Connection(Settings.message_bus.BROKER_URL)
+    message_bus.broker_scheme.declare(connection)
+
+    publisher = KombuPublisher(
+        connection=connection,
+        scheme=message_bus.broker_scheme,
+    )
+
+
 class Application:
     users = services.UserService(
         user_repo=DB.users_repo,
+        publisher=MessageBus.publisher,
     )
 
 
 class Aspects:
     services.join_points.join(DB.context)
     user_api.join_points.join(DB.context)
+    #user_api.join_points.join(MessageBus.publisher, DB.context)
 
 
 app = user_api.create_app(

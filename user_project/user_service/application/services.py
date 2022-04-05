@@ -8,6 +8,8 @@ from pydantic import validate_arguments
 from . import errors, interfaces
 from .dataclasses import User
 
+from classic.messaging import Message, Publisher
+
 join_points = PointCut()
 join_point = join_points.join_point
 
@@ -27,6 +29,7 @@ class UserUpDateInfo(DTO):
 @component
 class UserService:
     user_repo: interfaces.UsersRepo
+    publisher: Optional[Publisher] = None
 
     @join_point
     @validate_arguments
@@ -47,6 +50,12 @@ class UserService:
     def create_user(self, user_info: UserInfo) -> User:
         user = user_info.create_obj(User)
         self.user_repo.add(user)
+
+        if self.publisher:
+            self.publisher.plan(
+                Message('OrderPlaced', {'order_number': user.id})
+            )
+
         return user
 
     @join_point

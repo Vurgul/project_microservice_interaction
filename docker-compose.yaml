@@ -10,7 +10,7 @@ services:
     depends_on:
       - db
     env_file:
-      - .env
+      - user_project/.env
   backend_book:
     build:
       context: book_project/.
@@ -21,7 +21,7 @@ services:
     depends_on:
       - db
     env_file:
-      - .env
+      - book_project/.env
 
   backend_issue:
     build:
@@ -33,7 +33,7 @@ services:
     depends_on:
       - db
     env_file:
-      - .env
+      - issue_project/.env
   db:
     build:
       context: postgresql/.
@@ -41,8 +41,10 @@ services:
     restart: always
     volumes:
       - ./volumes/db
+    environment:
+      - POSTGRES_MULTIPLE_DATABASES="user_db","book_db","issue_db"
     env_file:
-      - .env
+      - postgresql/.env
   nginx:
     image: nginx:1.21.6
     container_name: nginx
