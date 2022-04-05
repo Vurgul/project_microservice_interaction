@@ -8,27 +8,31 @@ from pydantic import validate_arguments
 from . import errors, interfaces
 from .dataclasses import Issue
 
+
+from classic.messaging import Message, Publisher
+
 join_points = PointCut()
 join_point = join_points.join_point
 
 
 class IssueInfo(DTO):
-    author: str
-    title: int
+    action: str
     id: Optional[int]
-    status: Optional[bool]
+    user_id: Optional[int]
+    book_id: Optional[int]
 
 
 class IssueUpDateInfo(DTO):
-    author: Optional[str]
-    title: Optional[int]
-    status: Optional[bool]
+    action: Optional[str]
+    user_id: Optional[int]
+    book_id: Optional[int]
     id: int
 
 
 @component
 class IssueService:
     issue_repo: interfaces.IssuesRepo
+    publisher: Optional[Publisher] = None
 
     @join_point
     @validate_arguments

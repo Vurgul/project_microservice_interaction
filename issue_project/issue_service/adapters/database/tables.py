@@ -1,5 +1,7 @@
 from sqlalchemy import (Column, Integer, MetaData, String,
-                        Table, Boolean)
+                        Table, DateTime)
+
+from datetime import datetime
 
 naming_convention = {
     'ix': 'ix_%(column_0_label)s',
@@ -15,7 +17,8 @@ issues = Table(
     'issues',
     metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
-    Column('title', String(128), nullable=False),
-    Column('author', String(128), nullable=False),
-    Column('status', Boolean, default=True)
+    Column('action', String(128), nullable=False),
+    Column('user_id', Integer, nullable=True),
+    Column('book_id', Integer, nullable=True),
+    Column('data', nullable=False, default=datetime.now()),
 )

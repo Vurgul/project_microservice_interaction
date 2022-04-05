@@ -9,7 +9,7 @@ from classic.messaging_kombu import KombuPublisher
 
 class Settings:
     db = database.Settings()
-    chat_api = user_api.Settings()
+    user_api = user_api.Settings()
     message_bus = message_bus.Settings()
 
 
@@ -41,8 +41,8 @@ class Application:
 
 class Aspects:
     services.join_points.join(DB.context)
-    user_api.join_points.join(DB.context)
-    #user_api.join_points.join(MessageBus.publisher, DB.context)
+    #user_api.join_points.join(DB.context)
+    user_api.join_points.join(MessageBus.publisher, DB.context)
 
 
 app = user_api.create_app(

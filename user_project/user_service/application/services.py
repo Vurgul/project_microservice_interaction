@@ -53,7 +53,13 @@ class UserService:
 
         if self.publisher:
             self.publisher.plan(
-                Message('OrderPlaced', {'order_number': user.id})
+                Message(
+                    'users_exchange',
+                    {
+                        'user_id': user.id,
+                        'action': 'create',
+                    }
+                )
             )
 
         return user
