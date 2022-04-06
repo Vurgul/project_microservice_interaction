@@ -18,14 +18,14 @@ join_point = join_points.join_point
 class IssueInfo(DTO):
     action: str
     id: Optional[int]
-    user_id: Optional[int]
-    book_id: Optional[int]
+    object_type: Optional[str]
+    object_id: Optional[int]
 
 
 class IssueUpDateInfo(DTO):
     action: Optional[str]
-    user_id: Optional[int]
-    book_id: Optional[int]
+    object_type: Optional[str]
+    object_id: Optional[int]
     id: int
 
 
