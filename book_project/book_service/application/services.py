@@ -52,6 +52,18 @@ class BookService:
     def create_book(self, book_info: BookInfo) -> Book:
         book = book_info.create_obj(Book)
         self.book_repo.add(book)
+
+        if self.publisher:
+            self.publisher.plan(
+                Message(
+                    'our_exchange',
+                    {
+                        'user_id': book.id,
+                        'action': 'create',
+                    }
+                )
+            )
+
         return book
 
     @join_point
@@ -66,6 +78,18 @@ class BookService:
     @validate_arguments
     def delete_book(self, book_id: int):
         book = self.get_book_info(book_id)
+
+        if self.publisher:
+            self.publisher.plan(
+                Message(
+                    'our_exchange',
+                    {
+                        'book_id': book_id,
+                        'action': 'create',
+                    }
+                )
+            )
+
         self.book_repo.remove(book)
 
     @join_point
@@ -76,7 +100,17 @@ class BookService:
             modern_book = BookUpDateInfo(id=book_id, status=False)
             modern_book.populate_obj(book)
 
-            # TODO: докрутить паблишера
+            if self.publisher:
+                self.publisher.plan(
+                    Message(
+                        'our_exchange',
+                        {
+                            'book_id': book_id,
+                            'user_id': taker_id,
+                            'action': 'take',
+                        }
+                    )
+                )
         else:
             raise errors.BookBusy(id=book_id)
 
@@ -88,6 +122,16 @@ class BookService:
             modern_book = BookUpDateInfo(id=book_id, status=True)
             modern_book.populate_obj(book)
 
-            # TODO: докрутить паблишера
+            if self.publisher:
+                self.publisher.plan(
+                    Message(
+                        'our_exchange',
+                        {
+                            'book_id': book_id,
+                            'user_id': taker_id,
+                            'action': 'return',
+                        }
+                    )
+                )
         else:
             raise errors.BookNotBusy(id=book_id)

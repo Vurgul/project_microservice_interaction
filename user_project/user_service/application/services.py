@@ -37,7 +37,7 @@ class UserService:
         user = self.user_repo.get_by_id(user_id)
         if user is None:
             raise errors.NoUser(id=user_id)
-        print(user)
+
         return user
 
     @join_point
@@ -71,11 +71,23 @@ class UserService:
         user = self.get_user_info(user_id)
         modern_user = UserUpDateInfo(id=user_id, **kwargs)
         modern_user.populate_obj(user)
-        print(user)
+
         return user
 
     @join_point
     @validate_arguments
     def delete_user(self, user_id: int):
         user = self.get_user_info(user_id)
+
+        if self.publisher:
+            self.publisher.plan(
+                Message(
+                    'our_exchange',
+                    {
+                        'user_id': user_id,
+                        'action': 'delete',
+                    }
+                )
+            )
+
         self.user_repo.remove(user)

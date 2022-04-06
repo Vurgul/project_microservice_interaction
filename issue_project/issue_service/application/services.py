@@ -70,9 +70,14 @@ class IssueService:
         self.issue_repo.remove(issue)
 
     @join_point
-    def take_message(self, *args, **kwargs):
+    @validate_arguments
+    def take_message(self, user_id: int, book_id: int, action: str, *args, **kwargs):
         print('TEST CONNECTION')
         for arg in args:
             print(arg)
         for kwarg in kwargs:
             print(kwarg)
+
+        new_issue = IssueInfo(action=action, user_id=user_id, book_id=book_id)
+        issue = new_issue.create_obj(Issue)
+        self.issue_repo.add(issue)

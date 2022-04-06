@@ -20,7 +20,7 @@ class Issues:
     def on_get_issues(self, request, response):
         """Получить информацию о всех заметках"""
         issues = self.issues.get_issues_info()
-        response.media = [asdict(issues) for issue in issues]
+        response.media = [asdict(issue) for issue in issues]
 
 
     @join_point
