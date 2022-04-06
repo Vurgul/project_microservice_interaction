@@ -40,7 +40,6 @@ class Books:
         book = self.books.update_book_info(
             **request.media
         )
-        # test_param = asdict(book)
         response.media = asdict(book)
 
     @join_point

@@ -10,6 +10,4 @@ class Issue:
     object_type: str
     object_id: int
     id: Optional[int] = None
-    #user_id: Optional[int]
-    #book_id: Optional[int]
-    #data:  Optional[datetime] = datetime.now()
+    # data:  Optional[datetime] = datetime.now()

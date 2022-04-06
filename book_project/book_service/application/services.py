@@ -58,7 +58,6 @@ class BookService:
                 Message(
                     'our_exchange',
                     {
-                        #'book_id': book.id,
                         'action': 'create',
                         'object_type': 'book',
                         'object_id': book.id,
@@ -86,8 +85,9 @@ class BookService:
                 Message(
                     'our_exchange',
                     {
-                        'book_id': book_id,
-                        'action': 'create',
+                        'action': 'delete',
+                        'object_type': 'book',
+                        'object_id': book.id,
                     }
                 )
             )
@@ -107,9 +107,20 @@ class BookService:
                     Message(
                         'our_exchange',
                         {
-                            'book_id': book_id,
-                            'user_id': taker_id,
                             'action': 'take',
+                            'object_type': 'book',
+                            'object_id': book.id,
+                        }
+                    )
+                )
+            if self.publisher:
+                self.publisher.plan(
+                    Message(
+                        'our_exchange',
+                        {
+                            'action': 'take',
+                            'object_type': 'user',
+                            'object_id': taker_id,
                         }
                     )
                 )
@@ -118,7 +129,7 @@ class BookService:
 
     @join_point
     @validate_arguments
-    def return_book(self, book_id: int, taker_id: int):
+    def return_book(self, book_id: int, returner_id: int):
         book = self.get_book_info(book_id)
         if book.status is False:
             modern_book = BookUpDateInfo(id=book_id, status=True)
@@ -129,9 +140,20 @@ class BookService:
                     Message(
                         'our_exchange',
                         {
-                            'book_id': book_id,
-                            'user_id': taker_id,
                             'action': 'return',
+                            'object_type': 'book',
+                            'object_id': book.id,
+                        }
+                    )
+                )
+            if self.publisher:
+                self.publisher.plan(
+                    Message(
+                        'our_exchange',
+                        {
+                            'action': 'return',
+                            'object_type': 'user',
+                            'object_id': returner_id,
                         }
                     )
                 )

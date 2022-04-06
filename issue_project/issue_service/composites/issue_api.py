@@ -4,7 +4,6 @@ from issue_service.application import services
 from sqlalchemy import create_engine
 
 from kombu import Connection
-from classic.messaging_kombu import KombuPublisher
 from threading import Thread
 
 class Settings:
@@ -25,7 +24,6 @@ class DB:
 class Application:
     issues = services.IssueService(
         issue_repo=DB.issues_repo,
-        #publisher=MessageBus.publisher,
     )
 
 
@@ -38,28 +36,16 @@ class MessageBus:
     def declare_scheme():
         message_bus.broker_scheme.declare(MessageBus.connection)
 
-#    message_bus.broker_scheme.declare(connection)
-#    publisher = KombuPublisher(
-#        connection=connection,
-#        scheme=message_bus.broker_scheme,
-#    )
-
 
 class Aspects:
     services.join_points.join(DB.context)
     issue_api.join_points.join(DB.context)
-    #issue_api.join_points.join(MessageBus.publisher, DB.context)
-
-
-#if __name__ == '__main__':
-#    MessageBus.declare_scheme()
-#    MessageBus.consumer.run()
 
 
 MessageBus.declare_scheme()
 consumer = Thread(target=MessageBus.consumer.run, daemon=True)
 consumer.start()
-#MessageBus.consumer.run
+
 
 app = issue_api.create_app(
     issues=Application.issues

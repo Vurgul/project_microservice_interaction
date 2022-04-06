@@ -14,7 +14,7 @@ class Settings:
 
 
 class DB:
-    engine = create_engine(Settings.db.DB_URL, echo=True)  # , echo=True
+    engine = create_engine(Settings.db.DB_URL)  # , echo=True
     database.metadata.create_all(engine)
 
     context = TransactionContext(bind=engine)
@@ -47,7 +47,6 @@ class Application:
 
 class Aspects:
     services.join_points.join(DB.context)
-    #user_api.join_points.join(DB.context)
     user_api.join_points.join(MessageBus.publisher, DB.context)
 
 

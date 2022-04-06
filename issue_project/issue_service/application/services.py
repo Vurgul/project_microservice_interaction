@@ -9,7 +9,7 @@ from . import errors, interfaces
 from .dataclasses import Issue
 
 
-from classic.messaging import Message, Publisher
+from classic.messaging import Publisher
 
 join_points = PointCut()
 join_point = join_points.join_point

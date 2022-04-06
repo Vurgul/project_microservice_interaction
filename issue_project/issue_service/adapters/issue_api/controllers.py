@@ -38,7 +38,6 @@ class Issues:
     def on_post_edit_issue(self, request, response):
         """Изменение данных заметки"""
         issue = self.issues.update_issue_info(**request.media)
-        # test_param = asdict(issue)
         response.media = asdict(issue)
 
     @join_point

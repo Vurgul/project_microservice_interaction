@@ -57,7 +57,6 @@ class UserService:
                 Message(
                     'our_exchange',
                     {
-                        #'user_id': user.id,
                         'action': 'create',
                         'object_type': 'user',
                         'object_id': user.id,
@@ -86,8 +85,9 @@ class UserService:
                 Message(
                     'our_exchange',
                     {
-                        'user_id': user_id,
                         'action': 'delete',
+                        'object_type': 'user',
+                        'object_id': user.id,
                     }
                 )
             )

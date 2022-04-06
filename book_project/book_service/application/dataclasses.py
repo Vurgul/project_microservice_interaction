@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Optional
 
 import attr
 
@@ -8,4 +8,4 @@ class Book:
     title: str = None
     author: str = None
     id: Optional[int] = None
-    status: Optional[bool] = False
+    status: Optional[bool] = True

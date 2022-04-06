@@ -40,7 +40,6 @@ class Users:
         user = self.users.update_user_info(
             **request.media
         )
-        # test_param = asdict(user)
         response.media = asdict(user)
 
     @join_point
