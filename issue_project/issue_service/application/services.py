@@ -29,6 +29,12 @@ class IssueUpDateInfo(DTO):
     id: int
 
 
+class IssueConsumer(DTO):
+    action: str
+    object_type: str
+    object_id: int
+    id: Optional[int]
+
 @component
 class IssueService:
     issue_repo: interfaces.IssuesRepo
@@ -70,14 +76,6 @@ class IssueService:
         self.issue_repo.remove(issue)
 
     @join_point
-    @validate_arguments
-    def take_message(self, user_id: int, book_id: int, action: str, *args, **kwargs):
-        print('TEST CONNECTION')
-        for arg in args:
-            print(arg)
-        for kwarg in kwargs:
-            print(kwarg)
-
-        new_issue = IssueInfo(action=action, user_id=user_id, book_id=book_id)
-        issue = new_issue.create_obj(Issue)
-        self.issue_repo.add(issue)
+    def take_message(self, action: str, object_type: str, object_id: int):
+        new_issue = Issue(action=action, object_type=object_type, object_id=object_id)
+        self.issue_repo.add(new_issue)

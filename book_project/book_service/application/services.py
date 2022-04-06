@@ -16,14 +16,14 @@ join_point = join_points.join_point
 
 class BookInfo(DTO):
     author: str
-    title: int
+    title: str
     id: Optional[int]
     status: Optional[bool]
 
 
 class BookUpDateInfo(DTO):
     author: Optional[str]
-    title: Optional[int]
+    title: Optional[str]
     status: Optional[bool]
     id: int
 
@@ -58,8 +58,10 @@ class BookService:
                 Message(
                     'our_exchange',
                     {
-                        'user_id': book.id,
+                        #'book_id': book.id,
                         'action': 'create',
+                        'object_type': 'book',
+                        'object_id': book.id,
                     }
                 )
             )

@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 
 from kombu import Connection
 from classic.messaging_kombu import KombuPublisher
-
+from threading import Thread
 
 class Settings:
     db = database.Settings()
@@ -56,8 +56,10 @@ class Aspects:
 #    MessageBus.consumer.run()
 
 
-#MessageBus.declare_scheme()
-#MessageBus.consumer.run()
+MessageBus.declare_scheme()
+consumer = Thread(target=MessageBus.consumer.run, daemon=True)
+consumer.start()
+#MessageBus.consumer.run
 
 app = issue_api.create_app(
     issues=Application.issues

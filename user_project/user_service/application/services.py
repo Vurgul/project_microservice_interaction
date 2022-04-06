@@ -57,8 +57,10 @@ class UserService:
                 Message(
                     'our_exchange',
                     {
-                        'user_id': user.id,
+                        #'user_id': user.id,
                         'action': 'create',
+                        'object_type': 'user',
+                        'object_id': user.id,
                     }
                 )
             )

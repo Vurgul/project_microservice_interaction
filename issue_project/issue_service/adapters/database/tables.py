@@ -18,7 +18,7 @@ issues = Table(
     metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
     Column('action', String(128), nullable=False),
-    Column('user_id', Integer, nullable=True),
-    Column('book_id', Integer, nullable=True),
-    Column('data', DateTime, nullable=False, default=datetime.now()),
+    Column('object_type', String(128), nullable=False),
+    Column('object_id', Integer, nullable=False),
+    #Column('data', DateTime, nullable=False, default=datetime.now()),
 )
