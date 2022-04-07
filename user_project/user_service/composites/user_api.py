@@ -1,10 +1,9 @@
-from classic.sql_storage import TransactionContext
-from user_service.adapters import user_api, database, message_bus
-from user_service.application import services
-from sqlalchemy import create_engine
-
-from kombu import Connection
 from classic.messaging_kombu import KombuPublisher
+from classic.sql_storage import TransactionContext
+from kombu import Connection
+from sqlalchemy import create_engine
+from user_service.adapters import database, message_bus, user_api
+from user_service.application import services
 
 
 class Settings:

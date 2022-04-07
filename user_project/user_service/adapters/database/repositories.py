@@ -2,9 +2,9 @@ from typing import Optional
 
 from classic.components import component
 from classic.sql_storage import BaseRepository
+from sqlalchemy import select
 from user_service.application import interfaces
 from user_service.application.dataclasses import User
-from sqlalchemy import select
 
 
 @component

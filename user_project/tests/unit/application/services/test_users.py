@@ -1,7 +1,8 @@
+from unittest.mock import Mock
+
 import pytest
 from user_service.application import errors
 from user_service.application.services import UserService
-from unittest.mock import Mock
 
 data_user = {
     'id': 3,

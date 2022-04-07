@@ -1,8 +1,9 @@
+from attr import asdict
 from classic.components import component
 from user_service.application import services
 
 from .join_points import join_point
-from attr import asdict
+
 
 @component
 class Users:

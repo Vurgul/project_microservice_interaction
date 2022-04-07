@@ -1,5 +1,5 @@
-from classic.http_api import App
 from book_service.application import services
+from classic.http_api import App
 
 from . import controllers
 

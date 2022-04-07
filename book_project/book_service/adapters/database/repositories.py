@@ -1,9 +1,9 @@
 from typing import Optional
 
-from classic.components import component
-from classic.sql_storage import BaseRepository
 from book_service.application import interfaces
 from book_service.application.dataclasses import Book
+from classic.components import component
+from classic.sql_storage import BaseRepository
 from sqlalchemy import select
 
 

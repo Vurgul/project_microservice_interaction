@@ -1,10 +1,11 @@
+from threading import Thread
+
 from classic.sql_storage import TransactionContext
-from issue_service.adapters import issue_api, database, message_bus
+from issue_service.adapters import database, issue_api, message_bus
 from issue_service.application import services
+from kombu import Connection
 from sqlalchemy import create_engine
 
-from kombu import Connection
-from threading import Thread
 
 class Settings:
     db = database.Settings()

@@ -1,7 +1,8 @@
+from unittest.mock import Mock
+
 import pytest
 from issue_service.application import errors
 from issue_service.application.services import IssueService
-from unittest.mock import Mock
 
 data_issue = {
     'id': 3,

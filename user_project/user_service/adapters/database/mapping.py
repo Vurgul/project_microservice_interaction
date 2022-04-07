@@ -1,5 +1,5 @@
-from user_service.application import dataclasses
 from sqlalchemy.orm import registry
+from user_service.application import dataclasses
 
 from . import tables
 

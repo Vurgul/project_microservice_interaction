@@ -1,10 +1,9 @@
-from classic.sql_storage import TransactionContext
 from book_service.adapters import book_api, database, message_bus
 from book_service.application import services
-from sqlalchemy import create_engine
-
-from kombu import Connection
 from classic.messaging_kombu import KombuPublisher
+from classic.sql_storage import TransactionContext
+from kombu import Connection
+from sqlalchemy import create_engine
 
 
 class Settings:

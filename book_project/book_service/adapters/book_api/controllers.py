@@ -1,8 +1,9 @@
-from classic.components import component
+from attr import asdict
 from book_service.application import services
+from classic.components import component
 
 from .join_points import join_point
-from attr import asdict
+
 
 @component
 class Books:

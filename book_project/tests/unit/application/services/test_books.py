@@ -1,7 +1,8 @@
+from unittest.mock import Mock
+
 import pytest
 from book_service.application import errors
 from book_service.application.services import BookService
-from unittest.mock import Mock
 
 data_book = {
     'id': 3,

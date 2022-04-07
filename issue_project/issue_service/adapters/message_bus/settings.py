@@ -1,7 +1,7 @@
+import os
 from typing import Optional
 
 from pydantic import BaseSettings
-import os
 
 
 class Settings(BaseSettings):

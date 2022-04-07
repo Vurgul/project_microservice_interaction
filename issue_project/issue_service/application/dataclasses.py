@@ -1,7 +1,7 @@
+from datetime import datetime
 from typing import List, Optional
 
 import attr
-from datetime import datetime
 
 
 @attr.dataclass

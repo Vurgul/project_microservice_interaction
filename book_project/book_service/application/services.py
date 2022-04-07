@@ -3,12 +3,11 @@ from typing import List, Optional
 from classic.app import DTO, validate_with_dto
 from classic.aspects import PointCut
 from classic.components import component
+from classic.messaging import Message, Publisher
 from pydantic import validate_arguments
 
 from . import errors, interfaces
 from .dataclasses import Book
-
-from classic.messaging import Message, Publisher
 
 join_points = PointCut()
 join_point = join_points.join_point
