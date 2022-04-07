@@ -51,6 +51,8 @@ class IssueService:
     @join_point
     def get_issues_info(self) -> List[Issue]:
         issues = self.issue_repo.get_all()
+        #for issue in issues:
+        #    issue.date = issue.date.strftime('%Y-%m-%d %H:%M:%S')
         return issues
 
     @join_point

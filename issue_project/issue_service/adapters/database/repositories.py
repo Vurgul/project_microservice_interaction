@@ -20,7 +20,13 @@ class IssuesRepo(BaseRepository, interfaces.IssuesRepo):
 
     def get_all(self):
         query = select(Issue)
-        return self.session.execute(query).scalars().all()
+        results = self.session.execute(query).scalars().all()
+        return list(map(self._parse_date, results))
 
     def remove(self, issue: Issue):
         self.session.delete(issue)
+
+    @classmethod
+    def _parse_date(cls, issue: Issue) -> Issue:
+        issue.date = issue.date.strftime('%Y-%m-%d %H:%M:%S')
+        return issue

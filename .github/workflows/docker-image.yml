@@ -15,6 +15,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Copy env file
+      run: |
+        cp issue_project/ci.env issue_project/.env
+        cp book_project/ci.env book_project/.env
+        cp user_project/ci.env user_project/.env
+
     - name: Build the stack
       run: docker-compose build
 

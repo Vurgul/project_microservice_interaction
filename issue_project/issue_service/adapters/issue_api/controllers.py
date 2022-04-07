@@ -21,8 +21,6 @@ class Issues:
     def on_get_issues(self, request, response):
         """Получить информацию о всех заметках"""
         issues = self.issues.get_issues_info()
-        for issue in issues:
-            issue.date = issue.date.strftime('%Y-%m-%d %H:%M:%S')
         response.media = [asdict(issue) for issue in issues]
 
 
