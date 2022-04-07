@@ -12,7 +12,7 @@ services:
       - db
       - rabbitmq
     env_file:
-      - user_project/.env
+      - user_project/demo.env
 
   backend_book:
     build:
@@ -25,7 +25,7 @@ services:
       - db
       - rabbitmq
     env_file:
-      - book_project/.env
+      - book_project/demo.env
 
   backend_issue:
     build:
@@ -38,7 +38,7 @@ services:
       - db
       - rabbitmq
     env_file:
-      - issue_project/.env
+      - issue_project/demo.env
 
   db:
     build:

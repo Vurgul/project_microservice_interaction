@@ -14,5 +14,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+
     - name: Build the stack
       run: docker-compose build
+
+    - name: Run tests users
+      run: docker-compose run user_project python -m py.test -v
+
+    - name: Run tests books
+      run: docker-compose run book_project python -m py.test -v
+
+    - name: Run tests issue
+      run: docker-compose run issue_project python -m py.test -v
