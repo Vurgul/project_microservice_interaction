@@ -10,4 +10,4 @@ class Issue:
     object_type: str
     object_id: int
     id: Optional[int] = None
-    # data:  Optional[datetime] = datetime.now()
+    date:  Optional[datetime] = None

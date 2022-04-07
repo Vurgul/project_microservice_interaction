@@ -19,5 +19,5 @@ issues = Table(
     Column('action', String(128), nullable=False),
     Column('object_type', String(128), nullable=False),
     Column('object_id', Integer, nullable=False),
-    #Column('data', DateTime, nullable=False, default=datetime.now()),
+    Column('date', DateTime, nullable=False, default=datetime.utcnow()),
 )
