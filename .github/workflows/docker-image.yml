@@ -28,7 +28,7 @@ jobs:
       run: docker-compose run backend_user python -m pytest -v
 
     - name: Run tests books
-      run: docker-compose run backend_book python -m py.test -v
+      run: docker-compose run backend_book python -m pytest -v
 
     - name: Run tests issue
-      run: docker-compose run backend_issue python -m py.test -v
+      run: docker-compose run backend_issue python -m pytest -v
